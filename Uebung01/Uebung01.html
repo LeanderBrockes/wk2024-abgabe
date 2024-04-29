@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webbasierte Karten - Übung 1, SoSe 2024</title>
+</head>
+<body>
+    <script>
+        "use strict"
+
+        const cities = {
+            "type": "FeatureCollection",
+            "features": [
+            {
+                "type": "Feature",
+                "properties": {"cityname": "Istanbul", "country": "Turkey",  "population": 15655924},
+                "geometry": {
+                "coordinates": [
+                28.955,  41.013611
+                ],
+                "type": "Point"
+                }
+            },
+            {
+                "type": "Feature",
+                "properties":  {"cityname": "Moscow", "country": "Russia",  "population": 13149803},
+                "geometry": {
+                "coordinates": [
+                    37.617222, 55.755833	
+                ],
+                "type": "Point"
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {"cityname": "London", "country": "United Kingdom",  "population": 8926568 },
+                "geometry": {
+                "coordinates": [
+                    -0.1275, 51.507222 	
+                ],
+                "type": "Point"
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {"cityname": "Saint Petersburg", "country": "Russia",  "population": 5597763},
+                "geometry": {
+                "coordinates": [
+                    30.308611, 59.9375
+                ],
+                "type": "Point"
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {"cityname": "Berlin", "country": "Germany",  "population": 3755251},
+                "geometry": {
+                "coordinates": [
+                    13.405, 52.52
+                ],
+                "type": "Point"
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {"cityname": "Madrid", "country": "Spain",  "population": 3332035},
+                "geometry": {
+                "coordinates": [
+                    -3.703333, 40.416944
+                ],
+                "type": "Point"
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {"cityname": "Kiev", "country": "Ukraine",  "population": 2952301},
+                "geometry": {
+                "coordinates": [
+                    30.523333, 50.45
+                ],
+                "type": "Point"
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {"cityname": "Rome", "country": "Italy",  "population": 2755309},
+                "geometry": {
+                "coordinates": [
+                    12.482778, 41.893333
+                ],
+                "type": "Point"
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {"cityname": "Baku", "country": "Azerbaijan",  "population": 2336600},
+                "geometry": {
+                "coordinates": [
+                    49.882222, 40.395278	
+
+                ],
+                "type": "Point"
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {"cityname": "Paris", "country": "France",  "population": 2102650},
+                "geometry": {
+                "coordinates": [
+                    2.352222, 48.856667
+                ],
+                "type": "Point"
+                }
+            }
+            ]    
+        }
+        console.log(cities)
+
+        class Point {
+            constructor(name, coordinates){
+                this.name = name
+                this.coordinates = coordinates
+            }
+            nearest_city(city_array){ // function to find the nearest city to this point
+                const nearestCity = find_nearest_city(city_array.features, this)
+                console.log("The nearest city to", this.name, "is", nearestCity.properties.cityname, "with a distance of", nearestCity.properties.newPointDistance)
+                
+                this.nearestCity = nearestCity // new attribute with the nearest city
+                return nearestCity
+            }
+        }
+
+
+        let convert_distance_to_kilometers = (distance_in_m) => distance_in_m/1000;
+
+        function compute_geographic_distance(point1, point2, unit) // unit must be metres or kilometres
+        {
+            const R = 6371e3; // metres
+            // coordinates & -differences in radian:
+            const lat1 = point1[1] * Math.PI/180;
+            const lat2 = point2[1] * Math.PI/180;
+            const dlat = (point2[1]-point1[1]) * Math.PI/180;
+            const dlon = (point2[0]-point1[0]) * Math.PI/180;
+
+            // haversine formula:
+            const a = Math.sin(dlat/2) * Math.sin(dlat/2) +
+                      Math.cos(lat1) * Math.cos(lat2) *
+                      Math.sin(dlon/2) * Math.sin(dlon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+            // distance:
+            let geographic_distance = R * c; // metres
+            if (unit == "kilometres"){ // distance in kilomtres
+                geographic_distance = convert_distance_to_kilometers(geographic_distance)
+                console.log("converting from m to km")
+            } else if (unit != "metres"){ // error message if unit is neither metres or kilometres
+                console.log("wrong unit input, output is in metres") 
+            }
+            console.log(geographic_distance, unit)
+
+            return geographic_distance // geographic distance in the given unit (meter/kilometer)
+        }
+
+
+        function find_nearest_city(array_of_cities, new_point)
+        {
+            let distance_to_point = []
+            console.log("Array of the cites input:", array_of_cities)
+            console.log("The new point:", new_point)
+            for (let i = 0; i < array_of_cities.length; i++){ // computing the distance for each city
+                console.log("calculating distance between the new point an city", i+1)
+                distance_to_point[i] = [array_of_cities[i], compute_geographic_distance(array_of_cities[i].geometry.coordinates, new_point.coordinates, "kilometres")]
+            }
+
+            // sorting by the distance for each city
+            let sortby
+            distance_to_point.sort(sortby = (a,b) => a[1] -b[1])
+            console.log("Sorting the cities by distance to the new point:", distance_to_point)
+
+            // creating the object for the nearest city (additional property -> newPointDistance)
+            let nearest_city = {
+                "type": "Feature",
+                "properties": {
+                    "cityname": distance_to_point[0][0].properties.cityname,
+                    "country": distance_to_point[0][0].properties.country,
+                    "population": distance_to_point[0][0].properties.population,
+                    "newPointDistance": distance_to_point[0][1]
+                },
+                "geometry": {
+                "coordinates": distance_to_point[0][0].geometry.coordinates,
+                "type": "Point"
+                }
+            }
+            console.log(nearest_city)
+            return nearest_city // nearest city to the new_point (e.g. Dresden)
+        }
+
+        
+        // execute functions
+        const dresden = new Point("Dresden", [13.73836, 51.049259])
+
+        console.log("10000 m are:", convert_distance_to_kilometers(10000), "kilometres") // testing the conversion from m to km
+        console.log("The distance between", dresden.name, "and", cities.features[0].properties.cityname, "is:", compute_geographic_distance(dresden.coordinates, cities.features[0].geometry.coordinates, "kilometres")) // testing the distance computation     
+        dresden.nearest_city(cities) // computing the nearest city to dresden
+        console.log(dresden.nearestCity) // output of the nearest city to dresden
+
+    </script>
+    
+</body>
+</html>
