@@ -7,3 +7,5 @@ Das Programm kann die geojson Datei einlesen, einen neuen Punkt erstellen
  Im ersten Schritt muss die geojson Datei eingelesen werden.
  Im zweiten SChritt muss eine neuer Punkt erstellt werden
  Anschließend kann entweder die Tabelle oder das Diagramm generiert werden.
+
+GitHub Pages: https://leanderbrockes.github.io/wk2024-abgabe/Uebung02/Uebung02
