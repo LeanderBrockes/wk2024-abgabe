@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="author" content="Leander Brockes">
+
+        <title>Webbasierte Karten - Uebung 2, SoSe 2024</title>
+
+       <script async src="Uebung02.js"></script>
+       <script async src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <style>
+            .div1{
+                border: 5px outset rgba(144, 161, 70, 0.758);
+                background-color: rgb(133, 176, 190);
+                text-align: left;
+            }
+            .div2{
+                border: 5px outset rgba(144, 161, 70, 0.758);
+                background-color: rgb(142, 148, 113);
+                text-align: left;  
+            }
+            .div3{
+                border: 5px outset rgba(144, 161, 70, 0.758);
+                background-color: rgb(164, 172, 130);
+                text-align: left;  
+            }
+            table, th, td {
+                border: 1px solid black;
+                background-color: white;                
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Übung 2</h1>
+
+        <!-- Input -->
+        <div class="div1">
+            <h2>Input</h2>
+
+            <h3>Input der JSON-Datei:</h3>
+            <input type="file" onchange="loadCities(this)">
+
+            <h3>Eingabe des neuen Punkts:</h3>
+            
+            <label for="lat">Breite:</label>
+            <input type="number" id="lat">
+            <label for="lon">Länge:</label>
+            <input type="number" id="lon"><br>
+            <label for="cname">Name:</label>
+            <input type="text" id="cname">
+            <input type="submit" value="Bestätigen" id="submitPoint">
+        </div>
+
+        <!-- Output table -->
+        <div class="div2">
+            <h2>Tabelle</h2>
+
+            <input type="submit" value="Tabelle generieren" id="createTable">
+            <table id="table"></table>
+
+
+        </div>
+
+        <!-- Output chart -->
+        <div class="div3">
+            <h2>Diagramm</h2>
+
+            <input type="submit" value="Diagramm erstellen" id="createChart">
+            <canvas id="chart"></canvas>
+        </div>
+    </body>
+</html>
