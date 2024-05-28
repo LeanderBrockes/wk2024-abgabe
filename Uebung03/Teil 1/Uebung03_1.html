@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="author" content="Leander Brockes">
+
+        <title>Webbasierte Karten - Uebung 2, SoSe 2024</title>
+
+        <link rel="stylesheet" href="Uebung03_1.css">
+        <script async src="Uebung03_1.js"></script>
+        <script async src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+
+    <body>
+        <header class="container">
+        <h1>Übung 2</h1>
+        </header>
+
+        <main role="main" class="container">
+            <!-- Input -->
+            <div>
+                <h2>Input</h2>
+
+                <h3>Input der JSON-Datei:</h3>
+                <input type="file" onchange="loadCities(this)">
+
+             <h3>Eingabe des neuen Punkts:</h3>
+            
+                <label for="lat">Breite:</label>
+                <input type="number" id="lat">
+                <label for="lon">Länge:</label>
+                <input type="number" id="lon"><br>
+                <label for="cname">Name:</label>
+                <input type="text" id="cname">
+                <input type="submit" value="Bestätigen" id="submitPoint">
+            </div>
+
+            <!-- Fehlermeldung -->
+            <div class="errMessage hidden" id="err">
+                <p>Falscher Dateityp!</p>
+            </div>
+
+            <!-- Output table -->
+            <div>
+                <h2>Tabelle</h2>
+
+                <input type="submit" value="Tabelle generieren" id="createTable">
+                <table id="table"></table>
+
+
+            </div>
+
+            <!-- Output chart -->
+            <div>
+                <h2>Diagramm</h2>
+
+                <input type="submit" value="Diagramm erstellen" id="createChart">
+                <canvas id="chart"></canvas>
+            </div>
+        </main>
+        
+        <footer class="container">
+
+        </footer>
+    </body>
+</html>
