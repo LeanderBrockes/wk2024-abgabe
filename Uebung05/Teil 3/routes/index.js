@@ -25,6 +25,8 @@ router.post('/', (req, res) => {
 
   console.log(buffer.toString())
   saveDataDB(JSON.parse(buffer.toString()))
+
+  res.render('index', { title: 'Home' });
 })
 
 // function to save data to the database
