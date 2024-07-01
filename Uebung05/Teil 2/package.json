@@ -1,0 +1,22 @@
+{
+  "name": "uebung05_2",
+  "version": "1.0.0",
+  "description": "package for the second part of practice 5",
+  "main": "Server05_2.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node Server05_2.js"
+  },
+  "keywords": [
+    "Uebung 05",
+    "Webbasierte Kartenanwendungen",
+    "TU Dresden",
+    "Server"
+  ],
+  "author": "Leander Brockes",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongodb": "^6.7.0"
+  }
+}
