@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    // main
+    main.container-fluid.mb-5(role="main")
+      // Cities input
+      .row
+        .container-fluid.col
+          h3 Input der JSON-Datei:
+          form(action="/", method="post", enctype="multipart/form-data")
+            input#clist.btn.btn-primary(type="file", name="input_data")
+            br
+            button#submit.btn.btn-primary(type="submit") Bestätigen
+        #error.container-fluid.border.border-danger.border-3.rounded-4.bg-danger-subtle.col.d-none
+          p.fs-3.text-danger Falscher Dateityp!
+
+    script(defer, src="javascripts/Uebung05_home.js")

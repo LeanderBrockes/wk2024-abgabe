@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    // main
+    main.container-fluid.mb-5(role="main")
+      // Output chart
+      .div3
+        h3 Diagramm
+        .container-fluid
+          canvas#chart
+
+    script.
+      //console.log("This is working")
+      var cities = !{data};
+      console.log(cities)
+    script(defer, src="javascripts/Uebung05_getWeather.js")
+    script(defer, src="javascripts/Uebung05_chart.js")
