@@ -11,5 +11,6 @@ Wird ein Marker ausgewählt, wird für den jeweiligen Ort ein Liniendiagramm mit
 - tatsächliche Temperatur
 - gefühlte Temperatur
 Die Daten für die Vorhersage stammen aus der OpenWeather-API: https://openweathermap.org/forecast5
+Die Zeitangaben beziehen sich auf die UTC.
 
 Die Impressum-Seite enthält ein Impressum.
