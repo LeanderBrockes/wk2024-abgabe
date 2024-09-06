@@ -1,0 +1,61 @@
+extends layout
+
+block content
+    // main
+    main.container-fluid.mb-5(role="main")
+      // Formular
+      .row.mb-4
+        .container-fluid.col 
+          h3 Eingabe eines Punktes:
+          form(action="/form", method="post")
+            .input-group
+              // Name
+              span.input-group-text Name
+              input.form-control(type="text", placeholder="ABCD", name="cname", id="cname")
+            .row
+              // Koordinaten
+              .input-group.col
+                span.input-group-text Breite
+                input.form-control(type="number", step="0.000001", placeholder="00.000", name="lat", id="lat")
+                span.input-group-text °
+              .input-group.col
+                span.input-group-text Länge
+                input.form-control(type="number", step="0.000001", placeholder="00.000", name="lon", id="lon")
+                span.input-group-text °
+            .input-group
+              // URL
+              span.input-group-text URL (optional)
+              input.form-control(type="text", placeholder="www.wikipedia.org", name="url")
+            button#submitPoint.btn.btn-primary.disabled(type="submit") Bestätigen
+        #formError.container-fluid.border.border-danger.border-3.rounded-4.bg-danger-subtle.col.d-none
+          p.fs-3.text-danger Fehler erkannt!
+          p.fs-3.text-danger Inhalt des Formulars überprüfen...
+
+      // Imput-Feld
+      .row.mb-4
+        .container-fluid.col 
+          h3 Input im JSON Format:
+          form(action="/input", method="post")
+            .form-group
+              textarea.form-control(id="text_input", name="input_data", rows="5", placeholder="Json")
+            button#submitText.btn.btn-primary.disabled(type="submit") Bestätigen
+        #textError.container-fluid.border.border-danger.border-3.rounded-4.bg-danger-subtle.col.d-none
+          p.fs-3.text-danger Fehler erkannt!
+          p.fs-3.text-danger Inhalt des Textfeldes überprüfen...
+        
+
+      // File-Upload
+      .row.mb-4
+        .container-fluid.col
+          h3 Hochladen einer JSON-Datei:
+          form(action="/file", method="post", enctype="multipart/form-data")
+            input#clist.btn.btn-primary(type="file", name="input_data")
+            br
+            button#submitFile.btn.btn-primary.disabled(type="submit") Bestätigen
+        #fileError.container-fluid.border.border-danger.border-3.rounded-4.bg-danger-subtle.col.d-none
+          p.fs-3.text-danger Fehler erkannt!
+          p.fs-3.text-danger Dateityp und -inhalt überprüfen...
+        
+
+    script(defer, src="javascripts/saxony.js")
+    script(defer, src="javascripts/projekt_home.js")

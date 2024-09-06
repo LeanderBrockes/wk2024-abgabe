@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    // main
+    main.container-fluid.mb-5(role="main")
+      // Map
+      .container-fluid.mb-3
+        h3 Visualisierung als Karte:
+        .container-fluid
+          #map.map
+      .container-fluid
+        h3 Wettervorhersage: 
+        .conatiner-fluid.chart
+          canvas#chart
+      
+    script.
+      var places = !{data};
+      console.log(places)
+    script(defer, src="javascripts/dresden.js")
+    script(defer, src="javascripts/projekt_map.js")
+    

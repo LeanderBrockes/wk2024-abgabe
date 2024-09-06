@@ -1,0 +1,10 @@
+.map{
+    height:400px; 
+    width: auto;
+}
+
+.chart{
+    position: relative;
+    height:300px;
+    width: auto;
+}
